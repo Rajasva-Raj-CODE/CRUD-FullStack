@@ -4,7 +4,7 @@ import {Createuser,Getuser} from '../controller/userController.js'
 const routers = express.Router()
 
 routers.post('/create',Createuser)
-routers.post('/get',Getuser)
+routers.get('/get',Getuser)
 
 
 export default routers
