@@ -33,23 +33,42 @@ const Getuser = async (req, res) => {
 //Update User
 const Updateuser = async (req, res) => {
   try {
-   const userId = req.params.id;
-    const updatedUser = await UserModels.findByIdAndUpdate(userId, req.body,
-     {new:true});
+    const userId = req.params.id;
+    const updatedUser = await UserModels.findByIdAndUpdate(userId, req.body, {
+      new: true,
+    });
     if (!updatedUser) {
       return res.status(404).json({ success: false, Message: "No User Found" });
     }
-    res
-      .status(200)
-      .json({
-        success: true,
-        Message: "User Updated Successfully",
-        updatedUser,
-      });
+    res.status(200).json({
+      success: true,
+      Message: "User Updated Successfully",
+      updatedUser,
+    });
   } catch (error) {
     console.log(error);
     res.status(500).json({ success: false, Message: "internal server error" });
   }
 };
 
-export { Createuser, Getuser, Updateuser };
+//Delete User
+
+const Deleteuser = async (req, res) => {
+  try {
+    const userId = req.params.id;
+    const deletedUser = await UserModels.findByIdAndDelete(userId);
+    if (!deletedUser) {
+      return res.status(404).json({ success: false, Message: "No User Found" });
+    }
+    res.status(200).json({
+      success: true,
+      Message: "User Deleted Successfully",
+      deletedUser,
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ success: false, Message: "internal server error" });
+  }
+};
+
+export { Createuser, Getuser, Updateuser, Deleteuser };
