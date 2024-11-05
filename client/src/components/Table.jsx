@@ -1,6 +1,23 @@
+import React, { useEffect,useState } from "react";
+import axios from "axios";
 
-const Table = () => {
-  
+const Table = ({Updateuser,Deleteuser}) => {
+  const [data, setData] = useState([]);
+  useEffect(() => {
+    async function featchData() {
+      try {
+        const featchUser = await axios.get("http://localhost:3000/api/get");
+        const response = featchUser.data;
+        console.log(response);
+        setData(response);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    featchData();
+  }, [data]);
+
+
   return (
     <>
       <div className="container">
@@ -37,37 +54,42 @@ const Table = () => {
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td></td>
-                <td>Raj</td>
-                <td>Raj</td>
-                <td>Raj</td>
-                <td>Raj</td>
-                <td>Raj</td>
-                <td>
-                  <a
-                    href="#"
-                    className="edit cursor-pointer"
-                    data-bs-toggle="modal"
-                    data-bs-target="#editEmployeeModal"
-                  >
-                    <i className="material-icons" data-bs-toggle="tooltip">
-                      &#xE254;
-                    </i>
-                  </a>
-                  <a
-                    href="#"
-                    className="delete cursor-pointer"
-                    data-bs-toggle="modal"
-                    data-bs-target="#deleteEmployeeModal"
-                  >
-                    <i className="material-icons" data-bs-toggle="tooltip">
-                      &#xE872;
-                    </i>
-                  </a>
-                  {/* <a className="delete" data-bas-toggle='modal' data-bs-target='#deleteEmployeeModal'><i className="material-icons" data-bs-toggle="tooltip" title="Delete">&#xE872;</i></a> */}
-                </td>
-              </tr>
+              {data.user?.map((item, index) => {
+                return (
+                  <tr key={index} >
+                    <td></td>
+                    <td>{item.name}</td>
+                    <td>{item.fathername}</td>
+                    <td>{item.email}</td>
+                    <td>{item.phone}</td>
+                    <td>
+                      <a
+                        href="#"
+                        className="edit cursor-pointer"
+                        data-bs-toggle="modal"
+                        data-bs-target="#editEmployeeModal"
+                        onClick={()=>Updateuser(item._id)}
+                      >
+                        <i className="material-icons" data-bs-toggle="tooltip">
+                          &#xE254;
+                        </i>
+                      </a>
+                      <a
+                        href="#"
+                        className="delete cursor-pointer"
+                        data-bs-toggle="modal"
+                        data-bs-target="#deleteEmployeeModal"
+                        onClick={()=>Deleteuser(item._id)}
+                      >
+                        <i className="material-icons" data-bs-toggle="tooltip">
+                          &#xE872;
+                        </i>
+                      </a>
+                      {/* <a className="delete" data-bas-toggle='modal' data-bs-target='#deleteEmployeeModal'><i className="material-icons" data-bs-toggle="tooltip" title="Delete">&#xE872;</i></a> */}
+                    </td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
         </div>

@@ -1,12 +1,13 @@
-import React from "react";
+import { React } from "react";
 
-const UpdateUser = () => {
+const UpdateUser = ({ value, handleChange, handleSubmit }) => {
+
   return (
     <>
       <div id="editEmployeeModal" className="modal fade">
         <div className="modal-dialog">
           <div className="modal-content">
-            <form>
+            <form onSubmit={handleSubmit}>
               <div className="modal-header">
                 <h4 className="modal-title">Update User</h4>
                 <button
@@ -21,24 +22,44 @@ const UpdateUser = () => {
               <div className="modal-body">
                 <div className="form-group">
                   <label>Name</label>
-                  <input type="text" name="name" className="form-control" />
+                  <input
+                    type="text"
+                    name="name"
+                    value={value.name}
+                    className="form-control"
+                    onChange={handleChange}
+                  />
                 </div>
                 <div className="form-group">
                   <label>Father</label>
                   <input
                     type="text"
                     name="fathername"
+                    value={value.fathername}
                     className="form-control"
+                    onChange={handleChange}
                   />
                 </div>
                 <div className="form-group">
                   <label>Email</label>
-                  <input type="text" name="email" className="form-control" />
+                  <input
+                    type="text"
+                    name="email"
+                    value={value.email}
+                    className="form-control"
+                    onChange={handleChange}
+                  />
                 </div>
                 <div className="form-group">
                   <label>Phone</label>
 
-                  <input type="text" name="phone" className="form-control" />
+                  <input
+                    type="text"
+                    name="phone"
+                    value={value.phone}
+                    className="form-control"
+                    onChange={handleChange}
+                  />
                 </div>
               </div>
               <div className="modal-footer">
